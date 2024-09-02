@@ -1,32 +1,50 @@
 import fateczl.gabrielrobles.sort.QuickSort;
+import fateczl.gabrielrobles.sort.BubbleSort;
+import fateczl.gabrielrobles.sort.MergeSort;
 import fateczl.gabrielrobles.sort.PivotType;
 
 public class App {
     public static void main(String[] args) throws Exception {
         var quickSort = new QuickSort();
+        var mergeSort = new MergeSort();
+        var bubbleSort = new BubbleSort();
 
-        int[] array1 = { 74, 20, 74, 87, 81, 16, 25, 99, 44, 58 };
-        int[] array2 = { 44, 43, 42, 41, 40, 39, 38 };
-        int[] array3 = { 31, 32, 33, 34, 99, 98, 97, 96 };
+        int [] array = generateRandomArray(1500);
 
-        quickSort.sort(array1, PivotType.LAST);
-        quickSort.sort(array2, PivotType.MIDDLE_OF_THREE);
-        quickSort.sort(array3, PivotType.RANDOM);
+        long quickSortMiddleStartTime = System.nanoTime();
+        quickSort.sort(array, PivotType.MIDDLE);
+        long quickSortMiddleEndTime = System.nanoTime();
 
-        for (int i = 0; i < array1.length; i++) {
-            System.out.print(array1[i] + " ");
+        long quickSortFirstStartTime = System.nanoTime();
+        quickSort.sort(array, PivotType.FIRST);
+        long quickSortFirstEndTime = System.nanoTime();
+
+        long quickSortRandomStartTime = System.nanoTime();
+        quickSort.sort(array, PivotType.RANDOM);
+        long quickSortRandomEndTime = System.nanoTime();
+
+        long mergeSortStartTime = System.nanoTime();
+        mergeSort.sort(array);
+        long mergeSortEndTime = System.nanoTime();
+
+        long bubbleSortStartTime = System.nanoTime();
+        bubbleSort.sort(array);
+        long bubbleSortEndTime = System.nanoTime();
+
+        System.out.println("Quick Sort (Middle Pivot): " + ((float) (quickSortMiddleEndTime - quickSortMiddleStartTime) / 1000000) + " ms");
+        System.out.println("Quick Sort (First Pivot): " + ((float) (quickSortFirstEndTime - quickSortFirstStartTime) / 1000000) + " ms");
+        System.out.println("Quick Sort (Random Pivot): " + ((float) (quickSortRandomEndTime - quickSortRandomStartTime) / 1000000) + " ms");
+        System.out.println("Merge Sort: " + ((float) (mergeSortEndTime - mergeSortStartTime) / 1000000) + " ms");
+        System.out.println("Bubble Sort: " + ((float) (bubbleSortEndTime - bubbleSortStartTime) / 1000000) + " ms");
+    }
+
+    private static int[] generateRandomArray(int size) {
+        int[] array = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            array[i] = (int) (Math.random() * 1000) + 1;
         }
 
-        System.out.println();
-
-        for (int i = 0; i < array2.length; i++) {
-            System.out.print(array2[i] + " ");
-        }
-
-        System.out.println();
-
-        for (int i = 0; i < array3.length; i++) {
-            System.out.print(array3[i] + " ");
-        }
+        return array;
     }
 }
