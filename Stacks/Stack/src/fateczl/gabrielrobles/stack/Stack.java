@@ -35,6 +35,28 @@ public class Stack<T> {
         return elements[top];
     }
 
+    public int max() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Stack is empty");
+        }
+
+        var type = elements[0].getClass();
+
+        if (type != Integer.class) {
+            throw new IllegalStateException("Stack must be of type Integer");
+        }
+
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i <= top; i++) {
+            if ((int) elements[i] > max) {
+                max = (int) elements[i];
+            }
+        }
+        
+        return max;
+    }
+
     public boolean isEmpty() {
         return top == -1;
     }
