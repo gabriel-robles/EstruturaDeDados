@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  jar:
+    desc: Generate a jar file
+    cmds:
+      - cd bin && jar cf ../lib/stack-1.0.jar fateczl/gabrielrobles/stack/*.class
